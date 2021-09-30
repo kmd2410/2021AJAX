@@ -7,7 +7,56 @@
     <title>Document</title>
     <script src="./json.js"></script>
 </head>
-<body>
-    dfdfd
+<body>  
 </body>
+
+
+
+
+
+
+<script>
+	var check = $('input:checkbox[name="chk"]:checked').val();
+
+     // Get form         
+     var form = $('#pvilla')[0];       
+		    // Create an FormData object          
+		    var data = new FormData(form);         
+		    // disabled the submit_go button         
+		    $("#submit_go").prop("disabled", true);   
+		    
+		    $.ajax({             
+		        type: "POST",          
+		        enctype: 'multipart/form-data',  
+		        url: 'poolvillage_update.php',
+		        data: data,          
+		        processData: false,    
+		        contentType: false,      
+		        cache: false,           
+		        timeout: 600000,  
+			
+		        beforeSend : function() {  
+		                //alert('상담신청이 완료되었습니다.'); // 전송 전 실행 코드
+		            },
+				
+		        success: function (data) { 
+					$('body').html(data);
+		            //alert("전송 신청이 완료되었습니다");           
+		            $("#submit_go").prop("disabled", false);  
+		            // $("#okModals").hide();
+		            // $("#okModals input").val();
+		            // location.reload(true); 
+		            location.reload(true); 
+		        },          
+		        error: function (e) {  
+		            console.log("ERROR : ", e);     
+		            $("#submit_go").prop("disabled", false);    
+		            alert("상담신청에 실패하였습니다. 신청서를 다시확인후 작성해주시기 바랍니다.");      
+		            // $("#okModals").hide();
+		            // $("#okModals input").val();   
+		            location.reload(true); 
+		         }   
+				
+		    });
+</script>
 </html>
